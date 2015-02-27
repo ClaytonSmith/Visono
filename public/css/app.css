@@ -1,0 +1,28 @@
+/* app css stylesheet */
+
+body {
+    padding-top:70px;
+}
+
+
+.visono_background {
+    background: url('resources/soundwave.jpg') no-repeat center center;
+}
+
+.upordown {
+    background: #5CB85C;
+    color: #fff
+}
+
+.with-bg-size{
+    background-image: url('http://i.imgur.com/8S0y1uR.png');
+    background-position: center;    
+    background-size: cover;
+    overflow: hidden;
+    color: #FFF;
+}
+
+.navbar-fixed-top{
+
+    padding-right: 25px;
+}
