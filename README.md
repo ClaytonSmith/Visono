@@ -40,13 +40,15 @@ display of light, color, and sound.
       partials/         --> angular view partials (partial html templates)
         home.html
         settings.html
-	...
+	
 
 
 
 ## Authors
 
 [Clayton Smith](http://clayton-smith.com) - [GitHub](https://github.com/claytonsmith)
+
 [Shaun Confrey](www.google.com) - [GitHub](https://github.com)
+
 [Mark Mcgrotty](www.google.com) - [GitHub](https://github.com)
 
