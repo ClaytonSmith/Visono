@@ -1,13 +1,15 @@
 
 <div ng-controller="homeCtrl">
-  
-
-  
-  <div flow-init flow-files-submitted="$flow.upload()" class="jumbotron drop text-center" flow-drop ng-class="dropClass">
+  <div flow-init flow-files-submitted="$flow.upload()"
+       class="drop jumbotron text-center green"
+       ng-class="dropClass"
+       flow-drop>
     
-    <span class="btn btn-default" flow-btn>Upload File</span>
+    <h1 class="btn btn-default" flow-btn>Select File</h1>
     <br>
-    <b>OR</b><br>
+    <br>
+    <em>OR</em>
+    <br>
     <h1>Drag And Drop your file here</h1>
-    </div>  
+  </div>  
 </div>
