@@ -1,15 +1,19 @@
-
 <div ng-controller="homeCtrl">
-  <div flow-init flow-files-submitted="$flow.upload()"
-       class="drop jumbotron text-center green"
-       ng-class="dropClass"
-       flow-drop>
+  <div ng-file-drop      
+     class="drop-box jumbotron text-center green"
+     ng-model="files"
+     drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+     accept=".mp3,.wav,.png">
     
-    <h1 class="btn btn-default" flow-btn>Select File</h1>
+    <h1 class="btn btn-default" ng-file-select ng-model="files" >Select File</h1>
     <br>
     <br>
     <em>OR</em>
     <br>
     <h1>Drag And Drop your file here</h1>
   </div>  
+  
+  <div class="bg-primary" >
+    <button type="button" ng-show="test" class="btn btn-default pull-right" ng-click="changeView()"><h1>Next Page</h1></button>
+  </div>
 </div>

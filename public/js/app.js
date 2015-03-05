@@ -8,8 +8,8 @@
 
 'use strict';
 
-// Declare app level module which depends on filters, and services
-var app = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ngRoute', 'flow']);
+// Declare app level module which depends on filters, and services                                          
+var app = angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives','ngRoute', 'angularFileUpload', 'ngResource']);
 
 // Configure angular client side routing
 app.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -26,22 +26,23 @@ app.config(['$routeProvider', '$locationProvider', function($routeProvider, $loc
     $locationProvider.html5Mode(true);
 }]);
 
-app.config(['flowFactoryProvider', function (flowFactoryProvider) {
-    flowFactoryProvider.defaults = {
+/*app.config(['flowFactoryProvider', function (flowFactoryProvider) {
+   flowFactoryProvider.defaults = {
 	target: '',
 	permanentErrors: [500, 501],
 	maxChunkRetries: 1,
 	chunkRetryInterval: 5000,
 	simultaneousUploads: 1
-    };
+    };        
     
-    flowFactoryProvider.on('catchAll', function (event) {
-	console.log('catchAll', arguments);
-    });
+    // flowFactoryProvider.on('catchAll', function (event) {
+    // 	console.log('THIS IS A THIGN');
+    // 	console.log('catchAll', arguments);
+    // });
     
     // Can be used with different implementations of Flow.js
     flowFactoryProvider.factory = fustyFlowFactory;
-}]);
+}]); */
 
 
 
