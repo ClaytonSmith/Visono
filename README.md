@@ -48,7 +48,7 @@ display of light, color, and sound.
 
 [Clayton Smith](http://clayton-smith.com) - [GitHub](https://github.com/claytonsmith)
 
-[Shaun Confrey](www.google.com) - [GitHub](https://github.com)
+[Shaun Confrey](www.google.com) - [GitHub](https://github.com/sconfrey)
 
 [Mark Mcgrotty](www.google.com) - [GitHub](https://github.com)
 
