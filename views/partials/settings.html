@@ -1,1 +1,30 @@
-<h1>Hello from Settings</h1>
+<div ng-controller="settingsCtrl">
+
+  <div class="main-container">  
+    <label for="num"><h2>Random number 1</h2></label>
+    <input type="number" id="name" placeholder="1337" />
+    <br>
+    <label for="thing"><h2>Random number 2</h2></label>
+    <input type="number" id="name" placeholder="1337" />
+    <br>
+    
+    <input type="radio" name="yes" value="yes" checked>Yes
+    <input type="radio" name="no" value="no">No
+    <br>
+  
+    <input type="checkbox" name="color" value="X">Use color X
+    <br>
+    <input type="checkbox" name="color" value="Y">Use color Y
+    <br>
+    
+    <button ng-click="show=true"><h2>Submit</h2></button>
+    <br>
+    <hr>
+  </div>
+    
+  <div class="bg-primary" >
+    <button type="button" ng-show="show" class="btn btn-default pull-right" ng-click="changeViewNext()"><h1>Next Page</h1></button>
+    <button type="button"  class="btn btn-default pull-left" ng-click="changeView()"><h1>Prev Page</h1></button>
+  </div>
+  
+</div>

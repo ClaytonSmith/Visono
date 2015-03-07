@@ -22,6 +22,7 @@ function homeCtrl($scope, $http, $location, $upload) {
     
     // TEMP VALUE, CHANGE WHEN NOT IN DEV MODE.
     $scope.test = false;
+    $scope.fileName = '';
     
     $scope.changeView = function(){
 	$location.path('/settings');
@@ -33,35 +34,87 @@ function homeCtrl($scope, $http, $location, $upload) {
     
     $scope.upload = function (files) {
 	if (files && files.length) {
-	console.log('File has been given');
+	    console.log('File has been given');
+	    console.log(files[0]);
+	    $scope.fileName = "File: " + files[0].name; 
 	    $scope.test = true;
-	 
-	// Working upload 
-	/* if (files && files.length) {
-           for (var i = 0; i < files.length; i++) {
-           var file = files[i];
-           $upload.upload({
-           url: 'upload/url',
-           fields: {'username': $scope.username},
-           file: file
-           }).progress(function (evt) {
-           var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-           console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-           }).success(function (data, status, headers, config) {
-           console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-           });
-           }
-           }*/
+	    
+	    // Working upload 
+	    /* if (files && files.length) {
+               for (var i = 0; i < files.length; i++) {
+               var file = files[i];
+               $upload.upload({
+               url: 'upload/url',
+               fields: {'username': $scope.username},
+               file: file
+               }).progress(function (evt) {
+               var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+               console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
+               }).success(function (data, status, headers, config) {
+               console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+               });
+               }
+               }*/
 	}
     };
 }
 
-function settingsCtrl($scope, $http, $location){}
+function galleryCtrl($scope, $http, $location){
+    
+
+    $scope.video = '';
+    $scope.setVideo = function(vid){
+	$scope.video = vid;
+	$scope.$apply();
+    }
+    
+    $scope.slides = [
+        {video: 'video/E_di_enfisema.mp4',  description: 'E di enfisema'},
+        {video: 'video/skull_trumpet.mp4',  description: 'Skull trumpet'},
+        {video: 'video/sparkling_wine.mp4', description: 'Sparkling wine'}
+    ];
+
+    $scope.direction = 'left';
+    $scope.currentIndex = 0;
+
+    $scope.setCurrentSlideIndex = function (index) {
+        $scope.direction = (index > $scope.currentIndex) ? 'left' : 'right';
+        $scope.currentIndex = index;
+    };
+
+    $scope.isCurrentSlideIndex = function (index) {
+        return $scope.currentIndex === index;
+    };
+
+    $scope.prevSlide = function () {
+        $scope.direction = 'left';
+        $scope.currentIndex = ($scope.currentIndex < $scope.slides.length - 1) ? ++$scope.currentIndex : 0;
+    };
+    
+    $scope.nextSlide = function () {
+        $scope.direction = 'right';
+        $scope.currentIndex = ($scope.currentIndex > 0) ? --$scope.currentIndex : $scope.slides.length - 1;
+    }	
+}
+
+
+function settingsCtrl($scope, $http, $location){
+    $scope.show = false;
+    
+    $scope.changeView = function(){
+	$location.path('/home');
+    }
+
+    $scope.changeViewNext = function(){
+	$location.path('/viewer');
+    }
+
+}
 
 function uploadCtrl($scope, $http, $location){}
 
 function viewerCtrl($scope, $http, $location){}
-function galleryCtrl($scope, $http, $location){}
+
 function userCtrl($scope, $http, $location){}
 function aboutCtrl($scope, $http, $location){}
 
