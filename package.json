@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "express": "~3.2.6",
-    "jade": "~0.31.2"
+    "jade": "~0.31.2",
+    "less-middleware": "^2.0.1",
+    "mongodb": "^1.4.34",
+    "mongoskin": "^1.4.12"
   },
   "devDependencies": {
     "ejs": "^2.3.1"

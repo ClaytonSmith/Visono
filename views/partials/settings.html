@@ -1,30 +1,87 @@
 <div ng-controller="settingsCtrl">
 
-  <div class="main-container">  
-    <label for="num"><h2>Random number 1</h2></label>
-    <input type="number" id="name" placeholder="1337" />
-    <br>
-    <label for="thing"><h2>Random number 2</h2></label>
-    <input type="number" id="name" placeholder="1337" />
-    <br>
-    
-    <input type="radio" name="yes" value="yes" checked>Yes
-    <input type="radio" name="no" value="no">No
-    <br>
-  
-    <input type="checkbox" name="color" value="X">Use color X
-    <br>
-    <input type="checkbox" name="color" value="Y">Use color Y
-    <br>
-    
-    <button ng-click="show=true"><h2>Submit</h2></button>
-    <br>
-    <hr>
+  <!--
+      visData.patriclesNum
+      visData.lineWidth
+      visData.size 
+    -->
+
+  <h2 class="form-signin-heading">Settings</h2>
+  <div class="container jumbotron">
+    <form class="form-signin" name="settingsForm" novalidate>
+      
+      <div class="container">
+	<div class="row">
+	  <div class="col-md-4">
+	    <p class="pull-left" > Number of Particles: {{visData.particleNum}}</p> 
+
+	  </div>
+	  <div class="col-md-8">
+	    <input class="slider pull-right" id="red" type="range" min="1" max="200" ng-model="visData.settings.particleNum"/>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	    <p class="pull-left">Line width:{{visData.lineWidth}}</p>
+	  </div>
+	  <div class="col-md-8">
+	    <input class="slider pull-right" id="red" type="range" min="1" max="100" ng-model="visData.settings.lineWidth"/>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">	 
+	    <p class="pull-left">Particle size: {{visData.size}}</p>
+	  </div>
+	  <div class="col-md-8">
+
+	    <input class="slider pull-right" id="red" type="range" min="1" max="100" ng-model="visData.settings.size"/>
+	  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-4">
+	    <p class="pull-left">Particle speed: {{visData.speed}}</p>
+	  </div>
+	  <div class="col-md-8">	    
+	    <input class="slider pull-right" id="red" type="range" min="1" max="5" ng-model="visData.settings.speed"/>
+	  </div>     
+	</div>
+      </div>
+      
+
+      
+      <h2>Colors</h2>
+      <p>Please select up to 8 colors that you would like to use. Click on a color you would like to remove.</p>	
+      <div class="container">
+	<div class="row-no-pull row vcenter">
+	  <div class="col-md-6 square">
+	    <h4>Foreground colors</h4>
+	    <ui-colorpicker options="{flat: true}"  ng-model="tempColor"></ui-colorpicker>
+	  </div>
+	  <div class="col-md-6 square">	    
+	    <h4>Background color</h4>
+	    <ui-colorpicker options="{flat: true}"  ng-model="visData.settings.backgroundColor"></ui-colorpicker>
+	  </div>		  
+	</div>
+	<div class="row-no-pull row vcenter" style="background: {{visData.settings.backgroundColor}};">         
+	  <div class="col-md-12 square">      
+	    <div class="col-md-3" ng-repeat="color in visData.settings.colors track by $index">
+	      <div class="expand-thumbnail"></div>
+	      <span class="thumbnail" ng-click="removeColor($index)" style="background: {{color}};">
+		<h3>{{$index+ 1}}</h3> {{color}}</span>
+	    </div>
+	  </div>
+	</div>
+      </div>
+      
+      <hr> 
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="validateSettings(visData)">Submit</button>
+      <p ng-show="noSubmit"  class="help-block"> Unable to submit, highlighted errors must be resolved.</p>
+    </form>
   </div>
-    
+  
+  
   <div class="bg-primary" >
-    <button type="button" ng-show="show" class="btn btn-default pull-right" ng-click="changeViewNext()"><h1>Next Page</h1></button>
-    <button type="button"  class="btn btn-default pull-left" ng-click="changeView()"><h1>Prev Page</h1></button>
+    <button type="button" ng-show="show" class="btn btn-default pull-right" ng-click="toViewer()"><h1>Next Page</h1></button>
+    <button type="button"  class="btn btn-default pull-left" ng-click="toHome()"><h1>Prev Page</h1></button>
   </div>
-  
 </div>

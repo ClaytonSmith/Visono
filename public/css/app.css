@@ -1,12 +1,14 @@
 /* app css stylesheet */
 
 body {
-    padding-top:70px;
+    padding-top: 30px;
+/*    background-color: #2F2F2F; */
 }
 
 
 .visono_background {
     background: url('resources/soundwave.jpg') no-repeat center center;
+
 }
 
 .upordown {
@@ -20,6 +22,8 @@ body {
     background-size: cover;
     overflow: hidden;
     color: #FFF;
+    height: 20vh;
+
 }
 
 .navbar-fixed-top{
@@ -32,12 +36,11 @@ body {
 }
 
 .slider {
-    width: 800px;
-    height: 400px;
+    width: 600px;
     overflow: hidden;
     position: relative;
     background: #e6e6e6;
-    border: 20px solid #FFF;
+    border: 10px solid #FFF;
     margin-top: 20px;
 }
 
@@ -87,4 +90,121 @@ body {
 
 .main-container{
     height: 48vh;
+}
+
+.container-canvas {
+    /* This could be done in one single declaration. See the extended sample. */
+    margin-right: auto;
+    margin-left: auto;
+}
+
+canvas{
+
+
+  border:5px solid rgba(255,255,255,0.1);
+  
+  /*
+      background:#222;
+    box-shadow:inset 0 0 100px #4162a9;
+  transform:translateZ(0);
+  */
+}
+
+.expand-thumbnail {
+    margin-top: 90%;
+    text-align:center;
+}
+
+.squar {
+    margin-top: 40%;
+    text-align:center;
+
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.thumbnail {
+    position: absolute;
+    top: 1em;
+    bottom: 0;
+    left: 7px;
+    right: 0;
+    height: 90%;
+    // width:  7px;
+    text-align:center;
+    padding-top:calc(30% - 30px);
+}
+
+.full-rec{
+    position: absolute;
+    top: 7px;
+    bottom: 0;
+    left: 7px;
+    right: 0;
+    height: 3px;
+    // width:  7px;
+    text-align:center;
+    padding-top:calc(50% - 30px);
+    
+}
+
+ul{
+    list-style-type: none;
+}
+.vcenter {
+    display: flex;
+    align-items: center;
+}
+
+.row-no-pull {
+    margin-left: 0px;
+    border-radius: 25px;
+}
+
+
+
+.wrap{
+  margin: 100px;
+  text-align:center;
+}
+.vote{
+  font-size:36px;
+}
+.up{
+  color:green;
+}
+.down{
+  color:red;
+}
+.inactive{
+  color:gray;
+}
+.score{
+  position: relative;
+  display:block;
+  padding: 5px 0;
+}
+.badge{
+  background: #eee;
+  padding:5px 10px;
+  border-radius: 30px;
+  position: absolute;
+  top:0;
+  margin-left:10px;
+}
+
+
+ 
+h1, h2, h3, h4, h5, h6, p {
+ /*   color: #E0E0E0; */
 }

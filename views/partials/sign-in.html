@@ -1,1 +1,47 @@
-<h1>Hello from Sign in</h1>
+<div ng-controlller="registerCtrl">
+  
+  <h2 class="form-signin-heading">Sign in</h2>
+  <div class="container jumbotron">
+    <form class="form-signin" name="userForm" novalidate>
+      
+      <h3>Username</h3>
+
+      <!-- Validation for username -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+	<label for="name" class="sr-only">User name</label>
+	<input type="text" name="name"
+	       class="form-control"
+	       placeholder="User name"
+	       ng-model="user.name"
+	       autofocus="" rquired="" 
+	       ng-minlength="3" ng-maxlength="16"
+	       ng-model-options="{ debounce: 1000}">
+	<p ng-show="userForm.name.$error.minlength" class="help-block">Username is too short.</p>
+	<p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+      </div>
+
+      <hr>
+
+      <h3>Password</h3>
+      <!-- Validation for password -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.passwordValidate.$pristine }">
+	<label for="password" class="sr-only">Password</label>
+	<input type="password" name="password"
+	       class="form-control"
+	       id="inputPassword"
+	       ng-minlength="3"
+	       placeholder="Password"
+	       ng-model="user.password"
+	       rquired="" autofocus="">
+	<p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
+      </div>
+      
+      <hr>
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="logInAs(user)">Sign in</button>
+      
+      <div ng-class="{ 'has-error' : noSubmit}">
+	<p ng-show="noSubmit"  class="help-block">Username or password incorrect.</p>
+      </div>
+    </form>
+  </div>
+</div>

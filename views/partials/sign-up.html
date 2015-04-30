@@ -1,1 +1,75 @@
-<h1>Hello from Sign up</h1>
+<div ng-controlller="registerCtrl">
+  <h2 class="form-signin-heading">Create an account</h2>
+  <div class="container jumbotron">
+    <form class="form-signin" name="userForm" ng-init="initSignUp()" novalidate>
+      
+      <h3>Username</h3>
+      
+      <!-- Validation for username -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+	<label for="name" class="sr-only">Username</label>
+	<input type="text" name="name"
+	       class="form-control"
+	       placeholder="Username"
+	       ng-model="user.name"
+	       ng-trim="false"
+	       autofocus="" rquired="" 
+	       ng-minlength="3" ng-maxlength="16"
+	       ng-model-options="{ debounce: 1000}">
+	<p ng-show="nameTaken"  class="help-block"> '{{user.name}}' is already taken. Please select a different username.</p>
+	<p ng-show="userForm.name.$error.minlength" class="help-block">Username is too short.</p>
+	<p ng-show="userForm.name.$error.maxlength" class="help-block">Username is too long.</p>
+     	<p ng-show="!userNameNoWhiteSpace && !userForm.name.$pristine" class="help-block">
+	  Username cannot contain whitespace.</p>
+      </div>
+      <hr>
+
+      <h3>Password</h3>
+      <!-- Validation for password -->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+	<label for="password" class="sr-only">Password</label>
+	<input type="password" name="password"
+	       class="form-control"
+	       id="inputPassword"
+	       ng-minlength="3"
+	       ng-trim="false"
+	       placeholder="Password"
+	       ng-model="user.password"
+	       rquired="" autofocus="">
+	<!-- negate has* to test for errors -->
+	<p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
+	<p ng-show="!hasNumeric   && !userForm.passwordValidate.$pristine" class="help-block">
+	  Password needs at least one numeric value.</p>
+	<p ng-show="!hasLower     && !userForm.passwordValidate.$pristine" class="help-block">
+	  Password needs at least one lowercase character.</p>
+	<p ng-show="!hasUpper     && !userForm.passwordValidate.$pristine" class="help-block">
+	  Password needs at least one uppercase character.</p>
+	<p ng-show="!hasSpecial   && !userForm.passwordValidate.$pristine" class="help-block">
+	  Password needs at least one special character.</p>
+	<p ng-show="!noWhiteSpace && !userForm.passwordValidate.$pristine" class="help-block">
+	  Passwords cannot contain whitespace.</p>
+      </div>
+
+      
+      <hr>
+      <!-- Validation for password check-->
+      <div class="form-group" ng-class="{ 'has-error' : userForm.passwordValidate.$invalid && !userForm.passwordValidate.$pristine }">
+	<label for="password" class="sr-only">Confirm your password</label>
+	<input type="password" name="passwordValidate"
+	       class="form-control"
+	       id="inputPassword"
+	       placeholder="Confirm your password"
+	       ng-model="user.passwordValidate"
+	       rquired="" autofocus=""
+	       ng-minlength="3" ng-maxlength="16">
+	<p ng-show="userForm.passwordValidate.$dirty && user.password != user.passwordValidate" class="help-block">Passwords do not match.</p>
+      </div>
+      
+      <hr> 
+      <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="createAccount(user)">Sign up</button>
+      
+      <p ng-show="noSubmit"  class="help-block"> Unable to submit, highlighted error must be resolved before user application can be submitted.</p>
+    </form>
+  </div>
+
+</div>

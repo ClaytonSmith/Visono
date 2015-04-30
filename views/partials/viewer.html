@@ -1,1 +1,83 @@
-<h1>Hello from Viewer</h1>
+<div ng-controlller="viewerCtrl" class="canvas-container">
+  
+  <div class="container">
+    <h1>{{visualizer.title}}</h1>
+    <h5>Author: {{visualizer.author}}</h5>
+  </div>
+  
+  <!-- Model content for saving visualizer -->
+  <modal title="Name your visualizer!" visible="showModal">
+    <form class="form-signin" name="visualizerSaveForm" ng-init="initTitleForm()" novalidate>      
+      <!-- Validation for username -->
+      <div class="form-group" ng-class="{ 'has-error' : (visualizerSaveForm.title.$invalid && !visualizerSaveForm.title.$pristine) || titleTaken  }">
+	<label for="title" class="sr-only">Usertitle</label>
+	<input type="text" name="title"
+	       class="form-control"
+	       value="{{visualizerForm.title}}"
+	       ng-model="visualizerForm.title"
+	       ng-trim="false"
+	       autofocus="" rquired="" 
+	       ng-minlength="5" ng-maxlength="60"
+	       ng-model-options="{ debounce: 1000}">
+	<p ng-show="titleTaken" class="help-block">You have already own a visualizer named: '{{visualizerForm.title}}'. Please select a different title.</p>
+	<p ng-show="visualizerSaveForm.title.$error.minlength" class="help-block">Title is too short.</p>
+	<p ng-show="visualizerSaveForm.title.$error.maxlength" class="help-block">Title is too long.</p>
+	<div class="modal-footer">
+	  <button class="btn btn-primary" ng-click="saveVisualizer()">OK</button>
+	  <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+      </div>    
+    </form> 
+  </modal>
+
+  <!---- Visualizer ---->
+  <canvas width="1200" height="500" ng-style="{'background-color': '{{visualizer.settings.backgroundColor }}' }">
+  </canvas>
+  
+  <!-- Save and settings buttons-->
+  <div class="bg-primary" >    
+    <button ng-show="!visualizer.saved" type="button" class="btn btn-info btn-default pull-right" ng-click="openModal()"><h3>Save visualizer</h3></button>
+    <button ng-show="!visualizer.saved" type="button" class="btn btn-default pull-left" ng-click="toSettings()"><h3>Modify Settings</h3></button>
+    <button ng-show="visualizer.saved" type="button" class="btn btn-default pull-left" ng-click="toSettings()"><h3>Fork</h3></button>
+  </div>
+  
+  <!-- Unknown but inportant -->
+  <div class="clearfix"></div>
+  
+  <!-- Comments -->
+  <div class="container">  
+    <br>
+    <h2>Comments</h2>
+    <hr>
+    
+    <ul class="list-unstyled">
+      <li ng-repeat="comment in visualizer.comments" class="container" ng-click="viewUser(comment.name)">
+	<div class="row-no-pull row">
+	  <div class="col-md-2 square">
+	    <div class="expand-thumbnail"></div>
+            <span class="thumbnail" ng-style="{'background-color': '{{comment.color}}' }"></span>
+	  </div>
+	  
+	  <div class="col-md-10 square">
+	    <h3>{{comment.name}}:</h3>
+	    <p>{{comment.comment}}</p>
+	  </div>
+	</div>
+	<br>
+	<hr>
+      </li>
+    </ul>
+    
+    <button class="btn btn-default pull-right" ng-click="saveComment()">
+      <h5>Save comment</h5>
+    </button>       
+    <form role="form">
+      <div class="form-group">
+	<label for="comment">Leave a comment:</label>
+	<label for="charLimit">{{charLimit}}</label>
+	<textarea class="form-control" rows="5" maxlength="500" id="comment" ng-model="comment"></textarea>
+      </div>
+    </form>
+  </div>  
+</div>
+

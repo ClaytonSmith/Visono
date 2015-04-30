@@ -1,0 +1,220 @@
+<div ng-controlller="userCtrl">
+  <div class="container">
+    <h1>Hello, {{userData.name}}</h1>
+
+
+    
+    <modal title="Are you sure you want to delete your account?" visible="showModal">
+      <div ng-class="has-error"> 
+	<h4 class="bg-warning" >WARNING:</h4>
+	<p>Deleting your account will result in the loss of all visualizers and comments</p>
+      </div>
+      <div class="modal-footer">
+	<button class="btn btn-primary" ng-click="deleteAccount()">yes</button>
+	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+      </div>
+    </modal>
+
+    <tabset justified="true">
+      <tab heading="My visualizers">
+	<br>
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <h3>Search</h3>
+	      <input type="text" class="form-control" ng-model="query" placeholder="Search for...">
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+	  <div class="col-lg-6">
+	    <div class="input-group pull-right">
+	      <div class="btn-group ">
+		<h3>Sort by</h3> 
+		<label class="btn btn-default" ng-click="sortField = 'title';           reverse = !reverse" btn-radio="'Left'" uncheckable>Title</label>
+		<label class="btn btn-default" ng-click="sortField = 'author';          reverse = !reverse" btn-radio="'Middle'" uncheckable>Author</label>
+		<label class="btn btn-default" ng-click="sortField = 'creationDate';    reverse = !reverse" btn-radio="'Right'" uncheckable>Date</label>
+		<label class="btn btn-default" ng-click="sortField = 'commnets.length'; reverse = !reverse" btn-radio="'farRight'" uncheckable>Number of comments</label>
+	      </div>
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+	<br>
+	<br>
+	<ul class="list-unstyled">
+	  <li ng-repeat="mVis in myVisualizers | filter:query | orderBy:sortField"   class="container" ng-click="loadVis(mVis)">
+	    <div class="row-no-pull row">
+	      <div class="col-md-2 square">
+		<div class="expand-thumbnail"  ></div>
+		<span class="thumbnail" ng-style="{'background-image': '{{getCssColors (mVis.settings.colors)}}' }">
+	      </div>
+	      <div class="col-md-8 square">
+		<h3>Name:   {{mVis.title}}</h3>
+		<h5>Author: {{mVis.author}}</h5>
+		<h5>Date created: {{mVis.creationDate}}</h5>
+	      </div>
+	      <div class="col-md-2 square">
+		<button type="button" class="btn btn-danger pull-right" ng-click="deleteVisualizer(mVis)">Delete</button>
+	      </div>
+	    </div>
+	    <hr>
+	  </li>
+	</ul>
+	
+      </tab>
+      
+
+      <tab heading="My comments">  
+	
+	<br>
+	<div class="row">
+	  <div class="col-lg-6">
+	    <div class="input-group">
+	      <h3>Search</h3>
+	      <input type="text" class="form-control" ng-model="query" placeholder="Search for...">
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+	  <div class="col-lg-6">
+	    <div class="input-group pull-right">
+	      <div class="btn-group ">
+		<h3>Sort by</h3> 
+		<label class="btn btn-default" ng-click="sortField = 'title';           reverse = !reverse" btn-radio="'Left'" uncheckable>Title</label>
+		<label class="btn btn-default" ng-click="sortField = 'author';          reverse = !reverse" btn-radio="'Middle'" uncheckable>Author</label>
+		<label class="btn btn-default" ng-click="sortField = 'creationDate';    reverse = !reverse" btn-radio="'Right'" uncheckable>Date</label>
+		<label class="btn btn-default" ng-click="sortField = 'commnets.length'; reverse = !reverse" btn-radio="'farRight'" uncheckable>Number of comments</label>
+	      </div>
+	    </div><!-- /input-group -->
+	  </div><!-- /.col-lg-6 -->
+	</div><!-- /.row -->
+	<br>
+	<br>
+
+	<ul class="list-unstyled">
+	  <li ng-repeat="cVis in myComments | filter:query | orderBy:sortField" class="container" ng-click="loadVis(cVis)">
+	    <div class="row-no-pull row">
+	      <div class="col-md-2 square">
+		<div class="expand-thumbnail"  ></div>
+		<span class="thumbnail" ng-style="{'background-image': '{{getCssColors(cVis.settings.colors)}}' }">
+	      </div>
+	      <div class="col-md-10 square">
+		<h3>Name:   {{cVis.title}}</h3>
+		<h5>Author: {{cVis.author}}</h5>
+		<h5>Date created: {{cVis.creationDate}}</h5>
+	      </div>
+	    </div>
+	    <hr>
+	  </li>
+	</ul>
+      </tab>
+      
+      
+
+      <tab heading="Personal settings">
+	<br>
+	
+	<div class="row-no-pull row">  
+	  <div class="col-md-4 square">
+	    <h3>Favorite color</h3><br>
+	  </div>
+	  <div class="col-md-4 square">	  
+	  </div>
+	  <div class="col-md-4 square">
+	    <h3>Password</h3>		  		
+	  </div>
+	</div>
+	
+	<div class="row-no-pull row">  
+	  <div class="col-md-4 square">
+	    <div class="expand-thumbnail"></div>
+	    <span class="thumbnail" style="background-color: {{userData.color}}"></span>
+	  </div>
+	  <div class="col-md-4 square">	    
+	    <ui-colorpicker ng-show="!changeColor" options="{flat: true}" ng-model="userData.color"></ui-colorpicker>
+	    <button  ng-show="changeColor" type="button" class="btn btn-default" ng-click="changeColor = !changeColor ">Change color</button>
+	  </div>
+
+	  <div class="col-md-4 square">
+	    
+	    <form class="form-signin pull-right" name="userForm" ng-init="initSignUp()" novalidate>
+	      
+
+
+	      <div class="form-group">
+		<label for="password" class="sr-only">Password</label>
+		<input type="password" name="oldPassword"
+		       class="form-control"
+		       id="inputPassword"
+		       ng-minlength="3"
+		       ng-trim="false"
+		       placeholder="Current password"
+		       ng-model="user.currentPassword"
+		       rquired="" autofocus="">
+	      </div>
+	      
+	      <!-- Validation for password -->
+	      <div class="form-group" ng-class="{ 'has-error' : userForm.password.$invalid && !userForm.password.$pristine }">
+		<label for="password" class="sr-only">Password</label>
+		<input type="password" name="password"
+		       class="form-control"
+		       id="inputPassword"
+		       ng-minlength="3"
+		       ng-trim="false"
+		       placeholder="New password"
+		       ng-model="user.password"
+		       rquired="" autofocus="">
+		<!-- negate has* to test for errors -->
+		<p ng-show="userForm.password.$error.minlength" class="help-block">Password is too short.</p>
+		<p ng-show="!hasNumeric   && !userForm.passwordValidate.$pristine" class="help-block">
+		  Password needs at least one numeric value.</p>
+		<p ng-show="!hasLower     && !userForm.passwordValidate.$pristine" class="help-block">
+		  Password needs at least one lowercase character.</p>
+		<p ng-show="!hasUpper     && !userForm.passwordValidate.$pristine" class="help-block">
+		  Password needs at least one uppercase character.</p>
+		<p ng-show="!hasSpecial   && !userForm.passwordValidate.$pristine" class="help-block">
+		  Password needs at least one special character.</p>
+		<p ng-show="!noWhiteSpace && !userForm.passwordValidate.$pristine" class="help-block">
+		  Passwords cannot contain whitespace.</p>
+	      </div>
+
+	      
+	      <hr>
+	      <!-- Validation for password check-->
+	      <div class="form-group" ng-class="{ 'has-error' : userForm.passwordValidate.$invalid && !userForm.passwordValidate.$pristine }">
+		<label for="password" class="sr-only">Confirm your password</label>
+		<input type="password" name="passwordValidate"
+		       class="form-control"
+		       id="inputPassword"
+		       placeholder="Confirm new password"
+		       ng-model="user.passwordValidate"
+		       rquired="" autofocus=""
+		       ng-minlength="3" ng-maxlength="16">
+		<p ng-show="userForm.passwordValidate.$dirty && user.password != user.passwordValidate" class="help-block">Passwords do not match.</p>
+	      </div>
+	      
+	      <p ng-show="noSubmit"  class="help-block"> Unable to submit, highlighted error must be resolved before user application can be submitted.</p>
+	    </form>
+	    
+	    
+
+
+	  </div>
+	  
+	</div>
+
+	<br>
+	<div class="row-no-pull row">  
+	  <div class="col-md-4 square">
+	  </div>
+	  <div class="col-md-4 square">	  
+	    
+	    <button ng-show="!changeColor" class="btn btn-lg btn-primary btn-block" type="submit" ng-click="saveSettings()">Save changes</button>
+	  </div>
+	  <div class="col-md-4 square">
+	  </div>
+	</div>
+	<button type="button" class="btn btn-danger pull-right" ng-click="openModal()">Delete account</button>    
+      </tab>
+    </tabset>      
+    
+    
+
+  </div>
+</div>

@@ -1,0 +1,61 @@
+{
+  "name": "ng-picky",
+  "version": "0.1.0",
+  "description": "Simple Angular Color Picker",
+  "main": "picker.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/danprince/ng-color-pick.git"
+  },
+  "keywords": [
+    "angular",
+    "color",
+    "picker",
+    "ng-picky"
+  ],
+  "author": {
+    "name": "Dan Prince"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/danprince/ng-color-pick/issues"
+  },
+  "homepage": "https://github.com/danprince/ng-color-pick",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-banner": "^0.2.3",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-cssmin": "^0.11.0",
+    "grunt-contrib-jshint": "^0.10.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "jshint": "^2.5.11",
+    "karma": "^0.12.28"
+  },
+  "gitHead": "57437298f6d4e29395ba807ee25c20e3eb220720",
+  "_id": "ng-picky@0.1.0",
+  "_shasum": "8a5c3fc93f32eaabe3a12aef0348e9fe28741d9d",
+  "_from": "ng-picky@*",
+  "_npmVersion": "2.0.0",
+  "_npmUser": {
+    "name": "danprince",
+    "email": "danielprince@hotmail.co.uk"
+  },
+  "maintainers": [
+    {
+      "name": "danprince",
+      "email": "danielprince@hotmail.co.uk"
+    }
+  ],
+  "dist": {
+    "shasum": "8a5c3fc93f32eaabe3a12aef0348e9fe28741d9d",
+    "tarball": "http://registry.npmjs.org/ng-picky/-/ng-picky-0.1.0.tgz"
+  },
+  "_resolved": "https://registry.npmjs.org/ng-picky/-/ng-picky-0.1.0.tgz"
+}

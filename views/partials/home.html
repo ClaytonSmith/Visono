@@ -1,5 +1,5 @@
 <div ng-controller="homeCtrl">
-  <div ng-file-drop      
+  <form ng-file-drop      
        class="drop-box jumbotron text-center green main-container"
        ng-model="files"
        drag-over-class="dragover" ng-multiple="true" allow-dir="true"
@@ -11,9 +11,9 @@
     <em>OR</em>
     <br>
     <h1>{{fileName || "Drag And Drop your file here"}}</h1>
-  </div>  
+  </form>  
   
   <div class="bg-primary" >
-    <button type="button" ng-show="test" class="btn btn-default pull-right" ng-click="changeView()"><h1>Next Page</h1></button>
+    <button type="button" ng-show="test" class="btn btn-default pull-right" ng-click="toSettings()"><h1>Next Page</h1></button>
   </div>
 </div>

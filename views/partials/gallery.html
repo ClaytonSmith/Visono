@@ -1,18 +1,44 @@
 <div ng-controller="galleryCtrl">
+  <br>  
   <h1>Welcome to the gallery</h1>
-  <p>The is a demonstration of what the gallery might look like when complete.</p>
-  <hr>
   
-    <ul class="list-group">
-      <li class="list-group-item center-block text-center"
-	  ng-repeat="slide in slides">
-	<h2>{{slide.description}}</h2>
-	
-	<video width="720" height="480" controls>
-	  <source ng-src={{slide.video}} type="video/mp4">
-	</video>
-	<hr>
-      </li>
-    </ul>
-</div>
-
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+	<h3>Search</h3>
+	<input type="text" class="form-control" ng-model="query" placeholder="Search for...">
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="col-lg-6">
+      <div class="input-group pull-right">
+	<div class="btn-group ">
+	  <h3>Sort by</h3> 
+	  <label class="btn btn-default" ng-click="sortField = 'title';       reverse = !reverse" btn-radio="'Left'" uncheckable>Title</label>
+	  <label class="btn btn-default" ng-click="sortField ='author';       reverse = !reverse" btn-radio="'Middle'" uncheckable>Author</label>
+	  <label class="btn btn-default" ng-click="sortField ='creationDate'; reverse = !reverse" btn-radio="'Right'" uncheckable>Date</label>
+	  <label class="btn btn-default" ng-click="sortField ='commnets.length'; reverse = !reverse" btn-radio="'farRight'" uncheckable>Number of comments</label>
+	</div>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <br>
+  <br>
+  <br>
+  
+  <ul class="list-unstyled">
+    <li ng-repeat="vis in visualizers  | filter:query | orderBy:sortField" class="container" ng-click="loadVis(vis)">
+      <div class="row-no-pull row">
+	<div class="col-md-2 square">
+	  <div class="expand-thumbnail"  ></div>
+          <span class="thumbnail" ng-style="{'background-image': '{{getCssColors (vis.settings.colors)}}' }"></span>
+	</div>
+	<div class="col-md-10 square">
+	  <h4>Name:   {{vis.title}}</h4>
+	  <h6>Author: {{vis.author}}</h6>
+	  <h6>Date created: {{vis.creationDate}}</h6>
+	</div>
+      </div>
+      <hr>
+    </li>
+  </ul>
+</div> 
