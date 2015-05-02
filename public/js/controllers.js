@@ -2,6 +2,8 @@
 
 /* Controllers */
 
+// Helper function 
+// Tests to see if an object is empty.
 function isEmptyObject(obj){
     for(var propName in obj){
         if(obj.hasOwnProperty(propName)){
@@ -11,11 +13,13 @@ function isEmptyObject(obj){
     return true;
 }
 
-
+// Helper funtion
+// Returns a true if a list contains an element.
 function include(arr,obj) {
     return (arr.indexOf(obj) != -1);
 }
 
+// Global APP controller 
 function AppCtrl($scope, $http, $location, $rootScope) {
     
     $rootScope.visualizer = {} ;
@@ -36,6 +40,7 @@ function AppCtrl($scope, $http, $location, $rootScope) {
 	$scope.hasUserData  = false;
     }
     
+    // Saves users data to rootScope
     $rootScope.$watch('userData', function(newValue, oldValue) {
 	//update the DOM with newValue	
 	if(newValue === oldValue){
@@ -58,6 +63,7 @@ function AppCtrl($scope, $http, $location, $rootScope) {
 	});
 
 
+    // Converts array of hex colors to a css string
     $scope.getCssColors = function(colors){
 	var cssString = "linear-gradient(to right, "
 	console.log( "getting data" );
@@ -77,15 +83,14 @@ function AppCtrl($scope, $http, $location, $rootScope) {
 	console.log( cssString);
 	return cssString;
     }
-
+    
+    // Routing
     $scope.toHome     = function(){$location.path('/home'); }
     $scope.toSettings = function(){$location.path('/settings'); }
     $scope.toViewer   = function(){$location.path('viewer'); }
     $scope.toLogIn    = function(){$location.path('sign-in'); }
     $scope.toSignUp   = function(){$location.path('sign-up'); }
     $scope.toAbout    = function(){$location.path('about'); }
-
-
 }
 
 function homeCtrl($scope, $http, $location, $rootScope, $upload) {
@@ -97,11 +102,13 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
     $scope.uploadStat       = 0;
     $scope.showUpload       = false;
     $scope.max              = 100;
+
     // Auto-load files once they have been supplied
     $scope.$watch('files', function () {
 	$scope.upload($scope.files[$scope.files.length -1]);
     });
-    
+
+    // Upload file to server
     $scope.upload = function (file) {
 	if (file) {
 	    $rootScope.visualizer = {};
@@ -146,6 +153,7 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
     };
 }
 
+// Gallery controller
 function galleryCtrl($scope, $http, $location, $rootScope){
     
     $http.get('/api/get_visualizers').
@@ -154,6 +162,7 @@ function galleryCtrl($scope, $http, $location, $rootScope){
 	    console.log(data);
 	});
         
+    // Load visualizer data
     $scope.loadVis = function(vis){
 	
 	$rootScope.visualizer = vis ;
@@ -195,6 +204,7 @@ function settingsCtrl($scope, $http, $location, $rootScope){
     $scope.visData             = {};
     $scope.visData.settings    = {};
     
+    // Default values
     $scope.visData.title                    = $rootScope.visualizer.title;
     $scope.visData.settings.size            = 5;
     $scope.visData.settings.speed           = 2;
@@ -203,22 +213,25 @@ function settingsCtrl($scope, $http, $location, $rootScope){
     $scope.visData.settings.colors          = ['#f35d4f','#f36849','#c0d988','#6ddaf1','#f1e85b'] ;
     $scope.visData.settings.backgroundColor = '#000000';
     
+    /**** testing ****/
     console.log( $scope.visData.settings.colors );
     console.log( $rootScope.visualizer );
-    
     console.log( "THIS", isEmptyObject( $rootScope.visualizer.settings ), $rootScope.visualizer.settings  );
     
+
+    // Load user settings if they exist
     $scope.visData = (!isEmptyObject( $rootScope.visualizer.settings ))? $rootScope.visualizer : $scope.visData ;
     
     /********************/    
     
-
+    // Add color to users color collection
     $scope.addColor = function(color){
 	console.log( $scope.visData.settings.colors );        
 	if( $scope.visData.settings.colors.length >= 8) return ;
 	$scope.visData.settings.colors.push(color);
     }
     
+    // Force update to css color collection 
     $scope.$watch('tempColor', function(newValue, oldValue) {
 	console.log( newValue );
 	if(!newValue) return ;
@@ -226,14 +239,14 @@ function settingsCtrl($scope, $http, $location, $rootScope){
     });
     
     
+    // Remove color fom collection
     $scope.removeColor = function(index){
 	if( $scope.visData.settings.colors.length <= 1) return ;
 	$scope.visData.settings.colors.splice( index, 1);
     }
     
-
+    // Validate settings
     $scope.validateSettings = function(data){
-
 	console.log( data.settings );
 	$rootScope.visualizer.settings = data.settings ;
 	$rootScope.visualizer.title    = data.title ;
@@ -242,22 +255,22 @@ function settingsCtrl($scope, $http, $location, $rootScope){
     }   
 }
 
-function uploadCtrl($scope, $http, $location, $rootScope){}
+function uploadCtrl($scope, $http, $location, $rootScope){
+    // BLANK
+}
 
 
 function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
-
-    $location.hash('title');
     
-      // call $anchorScroll()
+    // scroll to title and visualizer
     $anchorScroll();
     
     /******* MODEL *******/
     $scope.showModal  = false;
     $scope.titleTaken = false;
     $scope.visualizerForm = {};
-//    $scope.visualizerSaveForm = {};
     
+    // Set modal title
     $scope.initTitleForm = function(){
 	console.log("THIS", $rootScope.visualizer.title );
 	$scope.visualizerForm.title = $rootScope.visualizer.title;
@@ -274,48 +287,54 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
     }
     
     $scope.validTitle = function(){
+
+	// get list of visualizers and maps that list into a 1D array that `include` can filter through
 	$scope.titleTaken = include( $rootScope.userData.visualizers.map( function(obj){return obj.title; }), $scope.visualizerForm.title);
 	console.log(  $rootScope.userData.visualizers.map( function(obj){return obj.title; }), $scope.visualizerForm.title,
 		      include( $rootScope.userData.visualizers.map( function(obj){return obj.title; }), $scope.visualizerForm.title));
-	console.log( $scope.titleTaken );
-	return  $scope.titleTaken;
+	
+	if( !$scope.titleTaken ) $rootScope.visualizer.title = $scope.visualizerForm.title;
+	return $scope.titleTaken;
     }
-
+    
     $scope.$watch('titleTaken', function(newValue, oldValue){
 	$scope.validTitle();
     });
     
-    // depreceated
-    $scope.saveVisualizer = function(){
-	    
+    
+    $scope.saveVisualizer = function(){	    
 	
+	// Must be signed in to save a visualizer
 	if( $rootScope.userData == null ){	
 	    console.log("Need an account to save visualizer.");	    
 	    return;
 	}
 	
+	// Title must be unique to user
 	if( $scope.validTitle() ){
 	    console.log( "Title taken");
 	    return;
 	} 
-	
-	$rootScope.visualizer.title = $scope.visualizerForm.title ;
-	
+		
 	var visualizerData = {
 	    _id:      $rootScope.userData._id,
 	    title:    $rootScope.visualizer.title,
 	    settings: $rootScope.visualizer.settings 
 	};
 	
+	// Save visualizer to server
 	$http.post('/api/create_visualizer', visualizerData ).
 	    success(function(data){
+
 		console.log("Visualizer saved.");
 		console.log(data);
+		
+		// Save data to rootScope
 		$rootScope.visualizer = data;
 		$rootScope.userData.visualizers.push({_id: data._id, title: $rootScope.visualizer.title});
-	
 		$rootScope.visualizer.saved = true;
 		$scope.cancel();
+		
 	    }).error(function(data, status){
 		console.log("unable to save visualizer")
 	    });	
@@ -777,10 +796,14 @@ function registerCtrl($scope, $http, $location, $rootScope){
 	
     };
     
+    // login for user with existing accounts
     $scope.logInAs = function(userInfo){
 	$http.post('/api/login', userInfo).
 	    success(function(data){
+		
 		console.log(data.name);
+		
+		// save data to rootScope
 		$rootScope.userData = data;
 		$location.path('/home');
 		console.log( 'Should be home' );
@@ -794,19 +817,16 @@ function registerCtrl($scope, $http, $location, $rootScope){
 		console.log(data);
 		console.log(status);
 	    });
-	
     };
 };
 
 //No methods needed
-
-
-function aboutCtrl($scope, $http, $location, $rootScope){}
-
-
+function aboutCtrl($scope, $http, $location, $rootScope){
+    //BLANK
+}
 
 //DO NOT TOUCH 
-
+// inject methods
 registerCtrl. $inject  =  ['$scope', '$http', '$location', '$rootScope'];
 settingsCtrl. $inject  =  ['$scope', '$http', '$location', '$rootScope']; 
 galleryCtrl.  $inject  =  ['$scope', '$http', '$location', '$rootScope'];
