@@ -22,10 +22,9 @@ function AppCtrl($scope, $http, $location, $rootScope) {
     $rootScope.visualizer.settings = {} ;
 
     $rootScope.userData = null;
-    
     $rootScope.file     = null;
     $rootScope.fileName = null;    
-    $scope.hasUserData  = false ;
+    $scope.hasUserData  = false;
     
     
     $scope.logOut = function(){
@@ -92,50 +91,58 @@ function AppCtrl($scope, $http, $location, $rootScope) {
 function homeCtrl($scope, $http, $location, $rootScope, $upload) {
     
     // TEMP VALUE, CHANGE WHEN NOT IN DEV MODE.
-    $scope.test = false;
-    $scope.fileName = '';
-    
+    $scope.showNext         = false;
+    $scope.fileName         = '';
+    $scope.fileNotSupported = false;
+    $scope.uploadStat       = 0;
+    $scope.showUpload       = false;
+    $scope.max              = 100;
+    // Auto-load files once they have been supplied
     $scope.$watch('files', function () {
-	$scope.upload($scope.files);
+	$scope.upload($scope.files[$scope.files.length -1]);
     });
     
-    // TOOD 
-    // - Check file type
-    
-    $scope.upload = function (files) {
-	if (files && files.length) {
+    $scope.upload = function (file) {
+	if (file) {
 	    $rootScope.visualizer = {};
 	    $rootScope.visualizer.settings = {};
 	    
 	    console.log('File has been given');
-	    console.log(files[0]);
-	    $scope.fileName = "File: " + files[0].name; 
+	    console.log(file);
+	    $scope.fileName = "File: " + file.name; 
 	    
-	    $rootScope.file     = files[0]; 
-	    $rootScope.visualizer.title = files[0].name;
+	    $rootScope.file = file; 
+	    $rootScope.visualizer.title = file.name;
 	    
-	    console.log( $rootScope.visualizer.title );
-	    $scope.test = true;
-	    
+	    // Check to meka sure files are of the propper type
+	    if( ($rootScope.file.type == "audio/mp3") ||
+		($rootScope.file.type == "audio/wav") ){ 
+		$scope.fileNotSupported = false;
+		$scope.showNext         = true;	    
+		
+	    } else {
+		$scope.fileNotSupported = true;
+		$scope.showNext         = false;
+		$scope.showUpload       = false;
+		return null;
+	    }
+
 	    console.log( "FILE UPLOAD", isEmptyObject( $rootScope.visualizer.settings ), $rootScope.visualizer.settings  );
 	    
 	    // Working upload 
-	    if (files && files.length) {
-		for (var i = 0; i < files.length; i++) {
-		    var file = files[i];
-		    $upload.upload({
-			url: 'upload',
-			//fields: {'username': $scope.userDatausername},
-			file: file
-		    }).progress(function (evt) {
-			var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-			console.log('progress: ' + progressPercentage + '% ' + evt.config.file.name);
-		    }).success(function (data, status, headers, config) {
-			console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
-		    });
-		}
-            }
-	}
+	    if (file) {
+		$upload.upload({
+		    url: 'upload',
+		    file: file
+		}).progress(function (evt) {
+		    $scope.showUpload = true;
+		    $scope.uploadStat = parseInt(100.0 * evt.loaded / evt.total);
+		    console.log('progress: ' + $scope.uploadStat + '% ' + evt.config.file.name);
+		}).success(function (data, status, headers, config) {
+		    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+		});
+	    }
+	}	
     };
 }
 

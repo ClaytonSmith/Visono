@@ -1,19 +1,43 @@
+<!---
+    - Project: Visono
+    - File: views/partials/home.html
+    -
+    - Author: Shaun Confrey
+    -
+    -  Copyright (c) 2015 by Visono development team
+    -      All rights reserved. May be freely copied or excerpted for
+    -      any purpouse with credit to the author.
+  --->
+
 <div ng-controller="homeCtrl">
+ 
+  <!-- Drag and drop element -->
   <form ng-file-drop      
-       class="drop-box jumbotron text-center green main-container"
-       ng-model="files"
-       drag-over-class="dragover" ng-multiple="true" allow-dir="true"
-       accept=".mp3,.wav,.png">
+	class="drop-box jumbotron text-center green main-container"
+	ng-model="files"
+	drag-over-class="dragover" ng-multiple="true" allow-dir="true"
+	accept=".mp3,.wav,.png">
     
     <h1 class="btn btn-default" ng-file-select ng-model="files" >Select File</h1>
     <br>
     <br>
     <em>OR</em>
     <br>
-    <h1>{{fileName || "Drag And Drop your file here"}}</h1>
+    <h1>{{fileName || "Drag and drop media files here"}}</h1>
   </form>  
+  <p>Note: Only files of type MP3 or WAV will be accepted. </p>
+  
+  <!-- Upload status -->
+  <div ng-show="showUpload">
+    <small><em>Uploading</em></small>
+    <progressbar max="max" value="uploadStat"><span style="color:black; white-space:nowrap;">{{uploadStat}} / 100</span></progressbar>
+  </div>
+  
+  <div ng-class="{ 'has-error' : fileNotSupported }">
+    <p ng-show="fileNotSupported" class="help-block">The file type {{file.type || "'Unknow'"}} of {{file.name}}, is not supported by Visono </p>
+  </div>
   
   <div class="bg-primary" >
-    <button type="button" ng-show="test" class="btn btn-default pull-right" ng-click="toSettings()"><h1>Next Page</h1></button>
+    <button type="button" ng-show="showNext && !fileNotSupported" class="btn btn-default pull-right" ng-click="toSettings()"><h1>Next Page</h1></button>
   </div>
 </div>

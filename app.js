@@ -2,11 +2,9 @@
  * File: app.js
  * Written By: Clayton Smith
  * Project name: Visono
- **
+ *
  * http://pastebin.com/12wzWV3e
  */
-
-
 
 var express = require('express'),
     routes  = require('./routes'),
@@ -39,10 +37,6 @@ app.set('view engine', 'html');
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-
-
-
-
 
 //app.use(express.cookieParser());
 //app.use(express.session({secret: '59B93087-78BC-4EB9-993A-A61FC844F6C9'}));

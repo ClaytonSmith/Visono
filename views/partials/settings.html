@@ -1,25 +1,35 @@
-<div ng-controller="settingsCtrl">
+<!---
+    - Project: Visono
+    - File: views/partials/settings.html
+    -
+    - Author: Clayton Smith / Shaun Confrey
+    -
+    -  Copyright (c) 2015 by Visono development team
+    -      All rights reserved. May be freely copied or excerpted for
+    -      any purpouse with credit to the author.
+  --->
 
-  <!--
-      visData.patriclesNum
-      visData.lineWidth
-      visData.size 
-    -->
+
+<div ng-controller="settingsCtrl">
 
   <h2 class="form-signin-heading">Settings</h2>
   <div class="container jumbotron">
     <form class="form-signin" name="settingsForm" novalidate>
       
       <div class="container">
+	
+	<!-- Particle count -->
 	<div class="row">
 	  <div class="col-md-4">
 	    <p class="pull-left" > Number of Particles: {{visData.particleNum}}</p> 
-
 	  </div>
+	  
 	  <div class="col-md-8">
 	    <input class="slider pull-right" id="red" type="range" min="1" max="200" ng-model="visData.settings.particleNum"/>
 	  </div>
 	</div>
+
+	<!-- Line width -->
 	<div class="row">
 	  <div class="col-md-4">
 	    <p class="pull-left">Line width:{{visData.lineWidth}}</p>
@@ -28,15 +38,18 @@
 	    <input class="slider pull-right" id="red" type="range" min="1" max="100" ng-model="visData.settings.lineWidth"/>
 	  </div>
 	</div>
+	
+	<!-- Particle size -->
 	<div class="row">
 	  <div class="col-md-4">	 
 	    <p class="pull-left">Particle size: {{visData.size}}</p>
 	  </div>
 	  <div class="col-md-8">
-
 	    <input class="slider pull-right" id="red" type="range" min="1" max="100" ng-model="visData.settings.size"/>
 	  </div>
 	</div>
+
+	<!-- Particle speed -->
 	<div class="row">
 	  <div class="col-md-4">
 	    <p class="pull-left">Particle speed: {{visData.speed}}</p>
@@ -47,21 +60,26 @@
 	</div>
       </div>
       
-
       
+      <!-- Color Selection -->
       <h2>Colors</h2>
       <p>Please select up to 8 colors that you would like to use. Click on a color you would like to remove.</p>	
       <div class="container">
 	<div class="row-no-pull row vcenter">
+	  <!-- Foreground color selector -->
 	  <div class="col-md-6 square">
 	    <h4>Foreground colors</h4>
 	    <ui-colorpicker options="{flat: true}"  ng-model="tempColor"></ui-colorpicker>
 	  </div>
+
+	  <!-- Background color selector -->
 	  <div class="col-md-6 square">	    
 	    <h4>Background color</h4>
 	    <ui-colorpicker options="{flat: true}"  ng-model="visData.settings.backgroundColor"></ui-colorpicker>
 	  </div>		  
 	</div>
+	
+	<!-- Color display-->
 	<div class="row-no-pull row vcenter" style="background: {{visData.settings.backgroundColor}};">         
 	  <div class="col-md-12 square">      
 	    <div class="col-md-3" ng-repeat="color in visData.settings.colors track by $index">
@@ -73,6 +91,8 @@
 	</div>
       </div>
       
+
+      <!-- Submit form and move to next page.  -->
       <hr> 
       <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="validateSettings(visData)">Submit</button>
       <p ng-show="noSubmit"  class="help-block"> Unable to submit, highlighted errors must be resolved.</p>
@@ -81,7 +101,10 @@
   
   
   <div class="bg-primary" >
+    <!-- No longer in use. Submit button takes users to next page. -->
     <button type="button" ng-show="show" class="btn btn-default pull-right" ng-click="toViewer()"><h1>Next Page</h1></button>
+
+    <!-- Still in use -->
     <button type="button"  class="btn btn-default pull-left" ng-click="toHome()"><h1>Prev Page</h1></button>
   </div>
 </div>

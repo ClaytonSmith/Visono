@@ -1,3 +1,14 @@
+<!---
+    - Project: Visono
+    - File: views/partials/viewer.html
+    -
+    - Author: Clayton Smith
+    -
+    -  Copyright (c) 2015 by Visono development team
+    -      All rights reserved. May be freely copied or excerpted for
+    -      any purpouse with credit to the author.
+  --->
+
 <div ng-controlller="viewerCtrl" class="canvas-container">
   
   <div class="container">
@@ -29,7 +40,8 @@
       </div>    
     </form> 
   </modal>
-
+  
+  
   <!---- Visualizer ---->
   <canvas width="1200" height="500" ng-style="{'background-color': '{{visualizer.settings.backgroundColor }}' }">
   </canvas>
@@ -41,7 +53,7 @@
     <button ng-show="visualizer.saved" type="button" class="btn btn-default pull-left" ng-click="toSettings()"><h3>Fork</h3></button>
   </div>
   
-  <!-- Unknown but inportant -->
+  <!-- Unknown but inportant, DO NOT REMOVE -->
   <div class="clearfix"></div>
   
   <!-- Comments -->
@@ -50,14 +62,18 @@
     <h2>Comments</h2>
     <hr>
     
+    <!-- Display comments-->
     <ul class="list-unstyled">
       <li ng-repeat="comment in visualizer.comments" class="container" ng-click="viewUser(comment.name)">
 	<div class="row-no-pull row">
 	  <div class="col-md-2 square">
 	    <div class="expand-thumbnail"></div>
+	    
+	    <!-- Color thumbnail-->
             <span class="thumbnail" ng-style="{'background-color': '{{comment.color}}' }"></span>
 	  </div>
 	  
+	  <!-- Comment body -->
 	  <div class="col-md-10 square">
 	    <h3>{{comment.name}}:</h3>
 	    <p>{{comment.comment}}</p>
@@ -68,6 +84,8 @@
       </li>
     </ul>
     
+
+    <!-- Comment creator -->
     <button class="btn btn-default pull-right" ng-click="saveComment()">
       <h5>Save comment</h5>
     </button>       
