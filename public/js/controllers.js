@@ -1,3 +1,16 @@
+
+/***
+ * Project: Visono
+ * File: public/js/controller.js
+ * 
+ * Authors: Clayton Smith / Mark McGrotty / Shaun Confrey
+ *
+ *  Copyright (c) 2015 by Visono development team
+ *      All rights reserved. May be freely copied or excerpted for
+ *      any purpose with credit to the author.
+ ***/
+
+
 'use strict';
 
 /* Controllers */
@@ -13,7 +26,7 @@ function isEmptyObject(obj){
     return true;
 }
 
-// Helper funtion
+// Helper function
 // Returns a true if a list contains an element.
 function include(arr,obj) {
     return (arr.indexOf(obj) != -1);
@@ -121,7 +134,7 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
 	    $rootScope.file = file; 
 	    $rootScope.visualizer.title = file.name;
 	    
-	    // Check to meka sure files are of the propper type
+	    // Check to meka sure files are of the proper type
 	    if( ($rootScope.file.type == "audio/mp3") ||
 		($rootScope.file.type == "audio/wav") ){ 
 		$scope.fileNotSupported = false;
@@ -170,7 +183,7 @@ function galleryCtrl($scope, $http, $location, $rootScope){
 
 	$rootScope.fileName   = vis.name;
 	$rootScope.visDat     = vis.settings;
-	$rootScope.autor      = vis.autor;
+	$rootScope.author     = vis.author;
 	$rootScope._id        = vis._id;
 	
 	$location.path('/viewer');
@@ -190,7 +203,7 @@ function galleryCtrl($scope, $http, $location, $rootScope){
 function settingsCtrl($scope, $http, $location, $rootScope){
     
     if( $rootScope.visualizer == null ){
-	console.log("You can't be on this page without a medea file.");
+	console.log("You can't be on this page without a media file.");
 	// $location.path('/home');
     }
     
@@ -239,7 +252,7 @@ function settingsCtrl($scope, $http, $location, $rootScope){
     });
     
     
-    // Remove color fom collection
+    // Remove color from collection
     $scope.removeColor = function(index){
 	if( $scope.visData.settings.colors.length <= 1) return ;
 	$scope.visData.settings.colors.splice( index, 1);
@@ -412,9 +425,10 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
     if(window.innerHeight>500)
 	canvas.style.top = (window.innerHeight - 500)/2+'px';
     
+    // Init each particle 
     function Factory(){  
-	this.x =  Math.round( Math.random() * w);
-	this.y =  Math.round( Math.random() * h);
+	this.x =  Math.round( Math.random()  * w);
+	this.y =  Math.round( Math.random()  * h);
 	this.rad = Math.round( Math.random() * 1) + 1;
 	
 	this.vx = Math.round( Math.random() * ($rootScope.visualizer.settings.speed/2)) - $rootScope.visualizer.settings.speed;
@@ -423,6 +437,7 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
 	
     }
     
+    // Draw/Update each particle
     function draw(){
 	ctx.clearRect(0, 0, w, h);
 	ctx.globalCompositeOperation = 'lighter';
@@ -446,7 +461,6 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
 		    factor++;
 		}
 	    }
-	    
 	    
 	    ctx.fillStyle = temp.rgba;
 	    ctx.strokeStyle = temp.rgba;
@@ -472,12 +486,14 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
 	}
     }
 
+    // Disctance function used to decide if a line should be drawn 
     function findDistance(p1,p2){  
 	return Math.sqrt( Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2) );
     }
 
+    // Request to draw frame
     window.requestAnimFrame = (function(){
-	return  window.requestAnimationFrame       ||
+	return  window.requestAnimationFrame   ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame    ||
             function( callback ){
@@ -492,6 +508,7 @@ function viewerCtrl($scope, $http, $location, $rootScope, $anchorScroll){
 	
     })();
 
+    // draw loop
     (function loop(){
 	draw();
 	requestAnimFrame(loop);
@@ -526,7 +543,7 @@ function myPageCtrl($scope, $http, $location, $rootScope){
 
 	$rootScope.fileName   = vis.name;
 	$rootScope.visDat     = vis.settings;
-	$rootScope.autor      = vis.autor;
+	$rootScope.author     = vis.author;
 	$rootScope._id        = vis._id;
 	
 	$location.path('/viewer');
@@ -776,7 +793,7 @@ function registerCtrl($scope, $http, $location, $rootScope){
 	    $scope.userForm.passwordValidate.$invalid ){
 	    
 	    $scope.noSubmit = true ;
-	    console.log( "Unable to create an account. Please fixe highlighted issues.");
+	    console.log( "Unable to create an account. Please fix highlighted issues.");
 	    return null;
 	}
 	

@@ -15,24 +15,24 @@
   <div class="container jumbotron">
     <form class="form-signin" name="userForm" ng-init="initSignUp()" novalidate>
       
-      <h3>Username</h3>
+      <h3>User name</h3>
       
       <!-- Validation for username -->
       <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
-	<label for="name" class="sr-only">Username</label>
+	<label for="name" class="sr-only">User name</label>
 	<input type="text" name="name"
 	       class="form-control"
-	       placeholder="Username" 
+	       placeholder="User name" 
 	       ng-model="user.name"
 	       ng-trim="false"
 	       autofocus="" rquired="" 
 	       ng-minlength="3" ng-maxlength="16"
 	       ng-model-options="{ debounce: 1000}">
-	<p ng-show="nameTaken"  class="help-block"> '{{user.name}}' is already taken. Please select a different username.</p>
-	<p ng-show="userForm.name.$error.minlength" class="help-block">Username is too short.</p>
-	<p ng-show="userForm.name.$error.maxlength" class="help-block">Username is too long.</p>
+	<p ng-show="nameTaken"  class="help-block"> '{{user.name}}' is already taken. Please select a different user name.</p>
+	<p ng-show="userForm.name.$error.minlength" class="help-block">User name is too short.</p>
+	<p ng-show="userForm.name.$error.maxlength" class="help-block">User name is too long.</p>
      	<p ng-show="!userNameNoWhiteSpace && !userForm.name.$pristine" class="help-block">
-	  Username cannot contain whitespace.</p>
+	  User name cannot contain whitespace.</p>
       </div>
       <hr>
 

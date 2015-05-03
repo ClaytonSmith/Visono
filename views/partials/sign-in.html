@@ -15,7 +15,7 @@
   <div class="container jumbotron">
     <form class="form-signin" name="userForm" novalidate>
       
-      <h3>Username</h3>
+      <h3>User name</h3>
 
       <!-- Validation for username -->
       <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
@@ -27,8 +27,8 @@
 	       autofocus="" rquired="" 
 	       ng-minlength="3" ng-maxlength="16"
 	       ng-model-options="{ debounce: 1000}">
-	<p ng-show="userForm.name.$error.minlength" class="help-block">Username is too short.</p>
-	<p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+	<p ng-show="userForm.name.$error.minlength" class="help-block">User name is too short.</p>
+	<p ng-show="userForm.username.$error.maxlength" class="help-block">User name is too long.</p>
       </div>
 
       <hr>
@@ -51,7 +51,7 @@
       <button class="btn btn-lg btn-primary btn-block" type="submit" ng-click="logInAs(user)">Sign in</button>
       
       <div ng-class="{ 'has-error' : noSubmit}">
-	<p ng-show="noSubmit"  class="help-block">Username or password incorrect.</p>
+	<p ng-show="noSubmit"  class="help-block">User name or password incorrect.</p>
       </div>
     </form>
   </div>

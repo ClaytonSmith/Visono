@@ -25,17 +25,23 @@
 	<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
       </div>
     </modal>
-
+    
+    <!-- TABS -->
     <tabset justified="true">
+     
+      <!-- TAB: User's visualizers -->
       <tab heading="My visualizers">
 	<br>
 	<div class="row">
+	  <!-- Search field -->
 	  <div class="col-lg-6">
 	    <div class="input-group">
 	      <h3>Search</h3>
 	      <input type="text" class="form-control" ng-model="query" placeholder="Search for...">
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
+	  
+	  <!-- Sort fields -->
 	  <div class="col-lg-6">
 	    <div class="input-group pull-right">
 	      <div class="btn-group ">
@@ -50,6 +56,8 @@
 	</div><!-- /.row -->
 	<br>
 	<br>
+	
+	<!-- Display list for user's visualizers -->
 	<ul class="list-unstyled">
 	  <li ng-repeat="mVis in myVisualizers | filter:query | orderBy:sortField"   class="container" ng-click="loadVis(mVis)">
 	    <div class="row-no-pull row">
@@ -72,17 +80,22 @@
 	
       </tab>
       
-
+      <!-- TAB: list of visualizers with commetns left by user -->
       <tab heading="My comments">  
-	
 	<br>
+	
+	<!-- Sorting fields --> 
 	<div class="row">
+	  
+	  <!-- Search bar -->
 	  <div class="col-lg-6">
 	    <div class="input-group">
 	      <h3>Search</h3>
 	      <input type="text" class="form-control" ng-model="query" placeholder="Search for...">
 	    </div><!-- /input-group -->
 	  </div><!-- /.col-lg-6 -->
+	  
+	  <!-- Sort by... -->
 	  <div class="col-lg-6">
 	    <div class="input-group pull-right">
 	      <div class="btn-group ">
@@ -98,6 +111,7 @@
 	<br>
 	<br>
 
+	<!-- Display list -->
 	<ul class="list-unstyled">
 	  <li ng-repeat="cVis in myComments | filter:query | orderBy:sortField" class="container" ng-click="loadVis(cVis)">
 	    <div class="row-no-pull row">
@@ -117,10 +131,11 @@
       </tab>
       
       
-
+      <!-- TAB: Personal data -->
       <tab heading="Personal settings">
 	<br>
 	
+	<!-- Labels for settings -->
 	<div class="row-no-pull row">  
 	  <div class="col-md-4 square">
 	    <h3>Favorite color</h3><br>
@@ -132,22 +147,26 @@
 	  </div>
 	</div>
 	
+	<!-- Settings -->
 	<div class="row-no-pull row">  
+	  
+	  <!-- Color selection -->
 	  <div class="col-md-4 square">
 	    <div class="expand-thumbnail"></div>
 	    <span class="thumbnail" style="background-color: {{userData.color}}"></span>
 	  </div>
-	  <div class="col-md-4 square">	    
+	  <!-- color controll -->
+	  <div class="col-md-4 square">
+	    
+	    <!-- Show UI color picker if selected -->
 	    <ui-colorpicker ng-show="!changeColor" options="{flat: true}" ng-model="userData.color"></ui-colorpicker>
 	    <button  ng-show="changeColor" type="button" class="btn btn-default" ng-click="changeColor = !changeColor ">Change color</button>
 	  </div>
 
+	  <!-- Change password -->
 	  <div class="col-md-4 square">
-	    
 	    <form class="form-signin pull-right" name="userForm" ng-init="initSignUp()" novalidate>
 	      
-
-
 	      <div class="form-group">
 		<label for="password" class="sr-only">Password</label>
 		<input type="password" name="oldPassword"
@@ -202,20 +221,16 @@
 	      
 	      <p ng-show="noSubmit"  class="help-block"> Unable to submit, highlighted error must be resolved before user application can be submitted.</p>
 	    </form>
-	    
-	    
-
-
 	  </div>
-	  
 	</div>
-
 	<br>
+
+
 	<div class="row-no-pull row">  
 	  <div class="col-md-4 square">
 	  </div>
 	  <div class="col-md-4 square">	  
-	    
+	    <!-- Save settings button will only be shown if a settings is changed -->
 	    <button ng-show="!changeColor" class="btn btn-lg btn-primary btn-block" type="submit" ng-click="saveSettings()">Save changes</button>
 	  </div>
 	  <div class="col-md-4 square">
@@ -224,8 +239,5 @@
 	<button type="button" class="btn btn-danger pull-right" ng-click="openModal()">Delete account</button>    
       </tab>
     </tabset>      
-    
-    
-
   </div>
 </div>

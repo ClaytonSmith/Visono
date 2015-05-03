@@ -21,7 +21,7 @@
     <form class="form-signin" name="visualizerSaveForm" ng-init="initTitleForm()" novalidate>      
       <!-- Validation for username -->
       <div class="form-group" ng-class="{ 'has-error' : (visualizerSaveForm.title.$invalid && !visualizerSaveForm.title.$pristine) || titleTaken  }">
-	<label for="title" class="sr-only">Usertitle</label>
+	<label for="title" class="sr-only">Title</label>
 	<input type="text" name="title"
 	       class="form-control"
 	       value="{{visualizerForm.title}}"
