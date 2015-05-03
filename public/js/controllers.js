@@ -110,16 +110,12 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
     
     // TEMP VALUE, CHANGE WHEN NOT IN DEV MODE.
     $scope.showNext         = false;
-    $scope.fileName         = '';
     $scope.fileNotSupported = false;
-    $scope.uploadStat       = 0;
     $scope.showUpload       = false;
+    $scope.fileName         = '';
+    $scope.uploadStat       = 0;
     $scope.max              = 100;
-
-    // Auto-load files once they have been supplied
-    $scope.$watch('files', function () {
-	$scope.upload($scope.files[$scope.files.length -1]);
-    });
+    $scope.files            = [];
 
     // Upload file to server
     $scope.upload = function (file) {
@@ -137,9 +133,7 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
 	    // Check to meka sure files are of the proper type
 	    if( ($rootScope.file.type == "audio/mp3") ||
 		($rootScope.file.type == "audio/wav") ){ 
-		$scope.fileNotSupported = false;
-		$scope.showNext         = true;	    
-		
+		$scope.fileNotSupported = false;		
 	    } else {
 		$scope.fileNotSupported = true;
 		$scope.showNext         = false;
@@ -160,10 +154,20 @@ function homeCtrl($scope, $http, $location, $rootScope, $upload) {
 		    console.log('progress: ' + $scope.uploadStat + '% ' + evt.config.file.name);
 		}).success(function (data, status, headers, config) {
 		    console.log('file ' + config.file.name + 'uploaded. Response: ' + data);
+		}).error(function(error, data){
+		    $scope.showNext   = true;	    
 		});
 	    }
 	}	
     };
+
+    // Auto-load files once they have been supplied
+    $scope.$watch('files', function () {
+	//$scope.upload($scope.files ); // [$scope.files.length -1]);
+	$scope.upload($scope.files[$scope.files.length -1]);
+    });                            
+    
+
 }
 
 // Gallery controller
